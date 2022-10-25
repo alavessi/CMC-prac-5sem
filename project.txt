@@ -1,0 +1,30 @@
+restart;
+with(Maplets);
+with(Maplets[Elements]);
+
+GRD := GridLayout['GR1'](
+	GridRow(
+		GridCell(Button("", height = 40, width = 40, onclick = Shutdown())),
+		GridCell(Button("", height = 40, width = 40, onclick = Shutdown())),
+		GridCell(Button("", height = 40, width = 40, onclick = Shutdown())),
+		GridCell(Button("", height = 40, width = 40, onclick = Shutdown())),
+		GridCell(Button("", height = 40, width = 40, onclick = Shutdown()))
+	)
+);
+
+HelpInfo:="Визуализатор алгоритмов поиска\n
+\tВведите набор чисел.\n
+\tВведите число, номер которого в этом наборе Вы хотите найти.\n
+\tЕсли массив неупорядочен, в нем применим только линейный поиск."
+
+maplet := Maplet(
+	onstartup = Action(RunWindow('W0')),
+	Window[W0](title = "Визуализация алгоритмов поиска", width = 350, height = 350, menubar = 'MB1', layout = BoxLayout(BoxColumn(["key = "], GRD))),
+	Window[W1](title = "Об авторе", width = 250, height = 150, ["Информация об авторе.", "Эмиров Самир 313 группа", "email: samir.emirov.2001@mail.ru", "2022/2023 учебный год"]),
+	Window[W2](title = "Справка", width = 350, height = 300, [HelpInfo]),
+	Window[W3](title = "Справка", width = 350, height = 100, ["Программа разработана на языке Maple в 2022 году"]),
+	MenuBar['MB1'](
+		Menu("Файл", MenuItem("Новый массив", Shutdown()), MenuSeparator(), MenuItem("Выход", Shutdown())),
+		Menu("Выберите тип массива", MenuItem("Отсортированный массив", Shutdown()), MenuSeparator(), MenuItem("Неотсортированный массив", Shutdown())),
+		Menu("Помощь", MenuItem("Об авторе", RunWindow('W1')), MenuSeparator(), MenuItem("Как использовать эту программу", RunWindow('W2')), MenuSeparator(), MenuItem("О программе", RunWindow('W3')))));
+Maplets[Display](maplet);
