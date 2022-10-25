@@ -17,20 +17,42 @@ HelpInfo:="Визуализатор алгоритмов поиска\n
 	\tВведите число, номер которого в этом наборе Вы хотите найти.\n
 	\tЕсли массив неупорядочен, в нем применим только линейный поиск."
 
+Linear_search1:=proc(arr, key)
+	local N,i;
+	N:=Size(arr);
+	for i from 0 to (N-1) do
+   		if (arr[i]=key) then
+        	i
+    	end if:
+	end do:
+	N
+end proc:
+
+Linear_search2 := proc(arr, key)
+	local N, i;
+	N := Size(arr);
+	Append(arr, key);
+	i := 0;
+	do
+		i := i + 1;
+	until arr[i] = key;
+	i
+end proc:
+
+
 maplet := Maplet(
 	onstartup = Action(RunWindow('W0')),
-	Window[W0](title = "Визуализация алгоритмов поиска", width = 350, height = 350, menubar = 'MB1', layout = BoxLayout(BoxColumn(["key = "], GRD))),
-	Window[W1](title = "Об авторе", width = 250, height = 150, ["Информация об авторе.", "Эмиров Самир 313 группа", "email: samir.emirov.2001@mail.ru", "2022/2023 учебный год"]),
-	Window[W2](title = "Справка", width = 350, height = 300, [HelpInfo]),
+	Window[W0](title = "Визуализация алгоритмов поиска", width = 500, height = 500, menubar = 'MB1', layout = BoxLayout(BoxColumn(["key = "], GRD))),
+	Window[W1](title = "Справка", width = 350, height = 300, [HelpInfo]),
+	Window[W2](title = "Об авторе", width = 250, height = 150, ["Информация об авторе.", "Эмиров Самир 313 группа", "email: samir.emirov.2001@mail.ru", "2022/2023 учебный год"]),
 	Window[W3](title = "О программе", width = 350, height = 100, ["Программа разработана на языке Maple в 2022 году"]),
 	MenuBar['MB1'](
 		Menu("Файл", MenuItem("Новый массив", Shutdown()), MenuSeparator(), MenuItem("Выход", Shutdown())),
 		Menu("Тип массива", MenuItem("Отсортированный", Shutdown()), MenuSeparator(), MenuItem("Неотсортированный", Shutdown())),
 		Menu("Метод поиска", MenuItem("Линейный", Shutdown()), MenuSeparator(), MenuItem("Бинарный", Shutdown()), MenuSeparator(), MenuItem("Тернарный", Shutdown())),
-		Menu("Помощь", MenuItem("Об авторе", RunWindow('W1')), MenuSeparator(), MenuItem("Руководство пользователя", RunWindow('W2')), MenuSeparator(), MenuItem("О программе", RunWindow('W3')))
+		Menu("Помощь", MenuItem("Руководство пользователя", RunWindow('W1')), MenuSeparator(), MenuItem("Об авторе", RunWindow('W2')), MenuSeparator(), MenuItem("О программе", RunWindow('W3')))
 	)
 )
-
 
 Maplets[Display](maplet);
 
