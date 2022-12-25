@@ -192,17 +192,212 @@ lobal x,x_nach;\n    " }{MPLTEXT 1 0 12 "Randomize():" }}{PARA 0 "> "
  1 0 22 "                j:=1;\n" }{MPLTEXT 1 0 20 "            end if
 ;\n" }{MPLTEXT 1 0 23 "        end do;   \n    " }{MPLTEXT 1 0 8 "end \+
 do:\n" }{MPLTEXT 1 0 10 "end proc:\n" }{MPLTEXT 1 0 15 "CreateArr(NUM)
-;" }}}{EXCHG {PARA 0 "> " 0 "" {MPLTEXT 1 0 31 "Linear_search1:=proc(a
-rr, key)\n" }{MPLTEXT 1 0 4 "    " }{MPLTEXT 1 0 11 "local N,i;\n" }
-{MPLTEXT 1 0 18 "    N:=nops(arr);\n" }{MPLTEXT 1 0 25 "    for i from
- 1 to N do\n" }{MPLTEXT 1 0 29 "        if (arr[i]=key) then\n" }
-{MPLTEXT 1 0 22 "            return i;\n" }{MPLTEXT 1 0 16 "        en
-d if:\n" }{MPLTEXT 1 0 12 "    end do:\n" }{MPLTEXT 1 0 13 "    return
- N\n" }{MPLTEXT 1 0 9 "end proc:" }}}{EXCHG {PARA 0 "> " 0 "" {MPLTEXT
- 1 0 31 "Linear_search2:=proc(arr, key)\n" }{MPLTEXT 1 0 13 "    local
- i;\n" }{MPLTEXT 1 0 22 "    Append(arr, key);\n" }{MPLTEXT 1 0 10 "  \+
-  i:=1;\n" }{MPLTEXT 1 0 7 "    do\n" }{MPLTEXT 1 0 15 "        i:=i+1
-\n" }{MPLTEXT 1 0 22 "    until(arr[i]=key):" }{MPLTEXT 1 0 1 "\n" }
+;" }}}{EXCHG {PARA 0 "> " 0 "" {MPLTEXT 1 0 15 "Change:=proc()\n" }
+{MPLTEXT 1 0 15 " local x1,i,C;\n" }{MPLTEXT 1 0 20 " global per,comp,
+a;\n" }{MPLTEXT 1 0 9 " x1:=[];\n" }{MPLTEXT 1 0 24 " for i from 1 to \+
+NUM do\n" }{MPLTEXT 1 0 24 "  x1:=[x1[],x_nach[i]];\n" }{MPLTEXT 1 0 
+9 " end do:\n" }{MPLTEXT 1 0 53 " if (Maplets:-Tools:-Get('RBBubble'('
+value'))) then \n" }{MPLTEXT 1 0 39 " Maplets:-Tools:-Set('P1'=Bubble(
+x1)):\n" }{MPLTEXT 1 0 88 " Maplets:-Tools:-Set('LBubble'('caption')=c
+at(cat(cat(\"Bubble (\",convert(comp,string)),\n" }{MPLTEXT 1 0 60 "  \+
+                    cat(\" ,\",convert(per,string))),\")\")):\n" }
+{MPLTEXT 1 0 55 " elif (Maplets:-Tools:-Get('RBChoice'('value'))) then
+ \n" }{MPLTEXT 1 0 39 " Maplets:-Tools:-Set('P1'=Choice(x1)):\n" }
+{MPLTEXT 1 0 88 " Maplets:-Tools:-Set('LChoice'('caption')=cat(cat(cat
+(\"Choice (\",convert(comp,string)),\n" }{MPLTEXT 1 0 60 "            \+
+          cat(\" ,\",convert(per,string))),\")\")):\n" }{MPLTEXT 1 0 
+54 " elif (Maplets:-Tools:-Get('RBShell'('value'))) then \n" }{MPLTEXT
+ 1 0 38 " Maplets:-Tools:-Set('P1'=Shell(x1)):\n" }{MPLTEXT 1 0 86 " M
+aplets:-Tools:-Set('LShell'('caption')=cat(cat(cat(\"Shell (\",convert
+(comp,string)),\n" }{MPLTEXT 1 0 60 "                      cat(\" ,\",
+convert(per,string))),\")\")):\n" }{MPLTEXT 1 0 54 " elif (Maplets:-To
+ols:-Get('RBHoare'('value'))) then \n" }{MPLTEXT 1 0 25 " per:=0; comp
+:=0; a:=x1;\n" }{MPLTEXT 1 0 26 " C:=Hoare(1,NUM,true,[]);\n" }
+{MPLTEXT 1 0 55 " Maplets:-Tools:-Set('P1'=display(C,insequence=true))
+:\n" }{MPLTEXT 1 0 86 " Maplets:-Tools:-Set('LHoare'('caption')=cat(ca
+t(cat(\"Hoare (\",convert(comp,string)),\n" }{MPLTEXT 1 0 60 "        \+
+              cat(\" ,\",convert(per,string))),\")\")):\n" }{MPLTEXT 
+1 0 46 " else Display(Maplet([\"Unexpected Error!\"]));\n" }{MPLTEXT 
+1 0 8 "end if;\n" }{MPLTEXT 1 0 9 "end proc:" }}}{EXCHG {PARA 0 "> " 0
+ "" {MPLTEXT 1 0 15 "ReSort:=proc()\n" }{MPLTEXT 1 0 32 "global NUM,pe
+r,comp,a,x_nach,x;\n" }{MPLTEXT 1 0 14 "local x1,i,C;\n" }{MPLTEXT 1 
+0 32 "NUM:=Maplets:-Tools:-Get('Sl');\n" }{MPLTEXT 1 0 16 "CreateArr(N
+UM);\n" }{MPLTEXT 1 0 11 "x_nach:=x;\n" }{MPLTEXT 1 0 60 "Maplets:-Too
+ls:-Set('LBubble'('caption')=\"Bubble (?, ?) \"):\n" }{MPLTEXT 1 0 60 
+"Maplets:-Tools:-Set('LChoice'('caption')=\"Choice (?, ?) \"):\n" }
+{MPLTEXT 1 0 58 "Maplets:-Tools:-Set('LShell'('caption')=\"Shell (?, ?
+) \"):\n" }{MPLTEXT 1 0 58 "Maplets:-Tools:-Set('LHoare'('caption')=\"
+Hoare (?, ?) \"):\n" }{MPLTEXT 1 0 9 " x1:=[];\n" }{MPLTEXT 1 0 24 " f
+or i from 1 to NUM do\n" }{MPLTEXT 1 0 24 "  x1:=[x1[],x_nach[i]];\n" 
+}{MPLTEXT 1 0 9 " end do:\n" }{MPLTEXT 1 0 53 " if (Maplets:-Tools:-Ge
+t('RBBubble'('value'))) then \n" }{MPLTEXT 1 0 39 " Maplets:-Tools:-Se
+t('P1'=Bubble(x1)):\n" }{MPLTEXT 1 0 88 " Maplets:-Tools:-Set('LBubble
+'('caption')=cat(cat(cat(\"Bubble (\",convert(comp,string)),\n" }
+{MPLTEXT 1 0 60 "                      cat(\" ,\",convert(per,string))
+),\")\")):\n" }{MPLTEXT 1 0 55 " elif (Maplets:-Tools:-Get('RBChoice'(
+'value'))) then \n" }{MPLTEXT 1 0 39 " Maplets:-Tools:-Set('P1'=Choice
+(x1)):\n" }{MPLTEXT 1 0 88 " Maplets:-Tools:-Set('LChoice'('caption')=
+cat(cat(cat(\"Choice (\",convert(comp,string)),\n" }{MPLTEXT 1 0 60 " \+
+                     cat(\" ,\",convert(per,string))),\")\")):\n" }
+{MPLTEXT 1 0 54 " elif (Maplets:-Tools:-Get('RBShell'('value'))) then \+
+\n" }{MPLTEXT 1 0 38 " Maplets:-Tools:-Set('P1'=Shell(x1)):\n" }
+{MPLTEXT 1 0 86 " Maplets:-Tools:-Set('LShell'('caption')=cat(cat(cat(
+\"Shell (\",convert(comp,string)),\n" }{MPLTEXT 1 0 60 "              \+
+        cat(\" ,\",convert(per,string))),\")\")):\n" }{MPLTEXT 1 0 54 
+" elif (Maplets:-Tools:-Get('RBHoare'('value'))) then \n" }{MPLTEXT 1 
+0 25 " per:=0; comp:=0; a:=x1;\n" }{MPLTEXT 1 0 26 " C:=Hoare(1,NUM,tr
+ue,[]);\n" }{MPLTEXT 1 0 55 " Maplets:-Tools:-Set('P1'=display(C,inseq
+uence=true)):\n" }{MPLTEXT 1 0 86 " Maplets:-Tools:-Set('LHoare'('capt
+ion')=cat(cat(cat(\"Hoare (\",convert(comp,string)),\n" }{MPLTEXT 1 0 
+60 "                      cat(\" ,\",convert(per,string))),\")\")):\n"
+ }{MPLTEXT 1 0 46 " else Display(Maplet([\"Unexpected Error!\"]));\n" 
+}{MPLTEXT 1 0 8 "end if;\n" }{MPLTEXT 1 0 9 "end proc:" }}}{EXCHG 
+{PARA 0 "> " 0 "" {MPLTEXT 1 0 17 "ShowHelp:=proc()\n" }{MPLTEXT 1 0 
+9 "Display(\n" }{MPLTEXT 1 0 10 "  Maplet(\n" }{MPLTEXT 1 0 11 "   Win
+dow(\n" }{MPLTEXT 1 0 58 "    title=\"Help\", width=400, height=400, r
+esizable=false,\n" }{MPLTEXT 1 0 12 "    layout=\n" }{MPLTEXT 1 0 16 "
+     BoxLayout(\n" }{MPLTEXT 1 0 23 "      [\"\\t\321\356\360\362\350
+\360\356\342\352\350\",\n" }{MPLTEXT 1 0 227 "      \"\\t\320\340\347
+\353\350\367\355\373\345 \340\353\343\356\360\350\362\354\373 \361\356
+\360\362\350\360\356\342\352\350 \357\360\345\344\361\362\340\342\353
+\345\355\373 \342 \344\340\355\355\356\354 \357\360\350\353\356\346\34
+5\355\350\350. \317\360\345\344\356\361\362\340\342\353\345\355\340 \3
+42\356\347\354\356\346\355\356\361\362\374 \357\360\356\361\354\356\36
+2\360\340 \361\340\354\356\343\356 \365\356\344\340 \361\356\360\362\3
+50\360\356\342\352\350 \350 \356\366\345\355\352\350 \345\345 \375\364
+\345\352\362\350\342\355\356\361\362\350 \355\340 \356\361\355\356\342
+\340\355\350\350 \352\356\353\350\367\345\361\362\342\340 \357\360\356
+\350\347\342\345\344\345\355\355\373\365 \356\357\345\360\340\366\350
+\351 \361\360\340\342\355\345\355\350\351 \350 \347\340\354\345\355\37
+3.\\n\n" }{MPLTEXT 1 0 162 "\\t\302 \360\345\346\350\354\345 \340\355
+\350\354\340\366\350\350 \357\360\345\344\361\362\340\342\353\345\355 \+
+\361\340\354 \365\356\344 \361\356\360\362\350\360\356\342\352\350. \3
+25\340\360\340\352\362\345\360\350\361\362\350\352\350 \352\340\346\34
+4\356\351 \361\356\360\362\350\360\356\342\352\350 \347\340\364\350\35
+2\361\350\360\356\342\340\355\373 \342 \364\356\360\354\340\362\345 (
+\312\356\353\350\367\345\361\362\342\356 \356\357\345\360\340\366\350
+\351 \361\360\340\342\355\345\355\350\351, \312\356\353\350\367\345\36
+1\362\342\356 \347\340\354\345\355).\\n\n" }{MPLTEXT 1 0 180 "\\t\316
+\366\345\355\352\340 \361\353\356\346\355\356\361\362\350 \352\340\346
+\344\356\343\356 \340\353\343\356\360\350\362\354\340 \355\340\365\356
+\344\350\354 \357\356 \364\356\360\354\363\353\345: \312\356\353\350\3
+67\345\361\362\342\356 \347\340\354\345\355 + (\312\356\353\350\367\34
+5\361\362\342\356 \361\360\340\342\355\345\355\350\351 / 2). \304\340
+\355\355\373\345 \365\340\360\340\352\362\345\360\350\361\362\350\352
+\350 \355\340\365\356\344\350\354 \357\356 \352\340\346\344\356\354\36
+3 \354\345\362\356\344\363 \355\340 \354\340\361\361\350\342\340\365 \+
+\360\340\347\355\356\351 \344\353\350\355\373.\\n\n" }{MPLTEXT 1 0 
+188 "\\t\317\360\350 \360\340\341\356\362\345 \341\373\353\340 \350\36
+1\357\356\353\374\347\356\342\340\355\340 \352\355\350\343\340 \304.\3
+12\355\363\362\340 \\\"The Art of Programming. \322\356\354 3.\\\" \+
+\\\"\321\356\360\362\350\360\356\342\352\340 \350 \357\356\350\361\352
+ - 2 \350\347\344.\\\" \302 \352\355\350\343\345 \345\361\362\374 \357
+\356\353\355\373\351 \356\341\347\356\360 \352\353\340\361\361\350\367
+\345\361\352\350\365 \340\353\343\356\360\350\362\354\356\342 \361\356
+\360\362\350\360\356\342\352\350 \350 \357\356\350\361\352\340.\\n\", \+
+\n" }{MPLTEXT 1 0 38 "      Button(\"OK\",onclick=Shutdown())\n" }
+{MPLTEXT 1 0 8 "      ]\n" }{MPLTEXT 1 0 7 "     )\n" }{MPLTEXT 1 0 5 
+"   )\n" }{MPLTEXT 1 0 4 "  )\n" }{MPLTEXT 1 0 3 " )\n" }{MPLTEXT 1 0 
+9 "end proc:" }}}{EXCHG {PARA 0 "> " 0 "" {MPLTEXT 1 0 18 "ShowAbout:=
+proc()\n" }{MPLTEXT 1 0 10 " Display(\n" }{MPLTEXT 1 0 10 "  Maplet(\n
+" }{MPLTEXT 1 0 11 "   Window(\n" }{MPLTEXT 1 0 35 "    title=\"About
+\",resizable=false,\n" }{MPLTEXT 1 0 12 "    layout=\n" }{MPLTEXT 1 0 
+16 "     BoxLayout(\n" }{MPLTEXT 1 0 36 "      [\"\\t\304\340\355\355
+\356\345 \357\360\350\353\356\346\345\355\350\345 - \375\362\356\",\n"
+ }{MPLTEXT 1 0 30 "       \"\\t\357\360\340\352\362\350\352\363\354 \3
+57\356 \321\317\317.\",\n" }{MPLTEXT 1 0 43 "       \"\\t\302\373\357
+\356\353\355\350\353 \361\362\363\344\345\355\362 \343\360\363\357\357
+\373 \317\314-401\",\n" }{MPLTEXT 1 0 36 "       \"\\t\324\340\352\363
+\353\374\362\345\362\340 \312\356\354\357\374\376\362\345\360\355\356
+\351\",\n" }{MPLTEXT 1 0 30 "       \"\\t\354\340\362\345\354\340\362
+\350\352\350 \327\324 \314\303\323\",\n" }{MPLTEXT 1 0 59 "       Labe
+l('halign'=center,'valign'=top,image=Shovkovy),\n" }{MPLTEXT 1 0 41 " \+
+      \"\\t\330\356\342\352\356\342\373\351 \300\353\345\352\361\340\3
+55\344\360 \321\345\360\343\345\345\342\350\367\",\n" }{MPLTEXT 1 0 
+44 "       \"\\t2005. \317\356\367\362\350 \342\361\345 \357\360\340\3
+42\340 \347\340\371\350\371\345\355\373.\",\n" }{MPLTEXT 1 0 39 "     \+
+  Button(\"OK\",onclick=Shutdown())\n" }{MPLTEXT 1 0 8 "      ]\n" }
+{MPLTEXT 1 0 7 "     )\n" }{MPLTEXT 1 0 6 "   ),\n" }{MPLTEXT 1 0 48 "
+   Image[Shovkovy](cat(MyDir,\"\\\\Shovkovy.jpg\"))\n" }{MPLTEXT 1 0 
+4 "  )\n" }{MPLTEXT 1 0 3 " )\n" }{MPLTEXT 1 0 9 "end proc:" }}}
+{EXCHG {PARA 0 "> " 0 "" {MPLTEXT 1 0 17 "ShowStat:=proc()\n" }
+{MPLTEXT 1 0 32 "#--------Statistics------------\n" }{MPLTEXT 1 0 29 "
+local N,x,Est,X,A,ST,x_save;\n" }{MPLTEXT 1 0 35 "global comp, exch, N
+UM, a, x_nach;\n" }{MPLTEXT 1 0 8 "N:=NUM;\n" }{MPLTEXT 1 0 23 "A:=[];
+ x_save:=x_nach;\n" }{MPLTEXT 1 0 30 "for NUM from 10 to 20 by 2 do\n"
+ }{MPLTEXT 1 0 16 "CreateArr(NUM);\n" }{MPLTEXT 1 0 27 "comp:=0; exch:
+=0; Est:=[];\n" }{MPLTEXT 1 0 69 "  a:=x_nach; SHoare(1,NUM,true,[]); \+
+Est:=[Est[],exch+round(comp/3)];\n" }{MPLTEXT 1 0 57 "  x:=x_nach; SSh
+ell(x); Est:=[Est[],exch+round(comp/3)];\n" }{MPLTEXT 1 0 58 "  x:=x_n
+ach; SChoice(x); Est:=[Est[],exch+round(comp/3)];\n" }{MPLTEXT 1 0 58 
+"  x:=x_nach; SBubble(x); Est:=[Est[],exch+round(comp/3)];\n" }
+{MPLTEXT 1 0 28 "  X:=convert([Est],matrix):\n" }{MPLTEXT 1 0 26 "  ST
+:=convert(NUM,string);" }}{PARA 0 "> " 0 "" {MPLTEXT 1 0 126 "  A:=[A[
+],matrixplot(X, heights=histogram, title=cat(cat(\"Number of elements \+
+= \",ST),\"\\n\\nBubble   Choice   Shell   Hoare\"))]:" }}{PARA 0 "> "
+ 0 "" {MPLTEXT 1 0 8 "end do:\n" }{MPLTEXT 1 0 27 "NUM:=N; x_nach:=x_s
+ave;   \n" }{MPLTEXT 1 0 9 "Display(\n" }{MPLTEXT 1 0 10 "  Maplet(\n"
+ }{MPLTEXT 1 0 11 "   Window(\n" }{MPLTEXT 1 0 40 "    title=\"Statist
+ics\",resizable=false,\n" }{MPLTEXT 1 0 12 "    layout=\n" }{MPLTEXT 
+1 0 15 "    BoxLayout(\n" }{MPLTEXT 1 0 15 "    BoxColumn(\n" }
+{MPLTEXT 1 0 25 "     BoxRow(border=true,\n" }{MPLTEXT 1 0 31 "      B
+oxCell(\"Overall costs\")\n" }{MPLTEXT 1 0 8 "     ),\n" }{MPLTEXT 1 
+0 25 "     BoxRow(border=true,\n" }{MPLTEXT 1 0 15 "      BoxCell(\n" 
+}{MPLTEXT 1 0 83 "       Plotter[P2](display(A,insequence=true), conti
+nuous=false, background=grey))\n" }{MPLTEXT 1 0 8 "     ),\n" }
+{MPLTEXT 1 0 25 "     BoxRow(border=true,\n" }{MPLTEXT 1 0 15 "      B
+oxCell(\n" }{MPLTEXT 1 0 77 "       Button(\"         Next         \",
+SetOption(P2('frame_forward')=true)))\n" }{MPLTEXT 1 0 8 "     ) \n" }
+{MPLTEXT 1 0 6 "    )\n" }{MPLTEXT 1 0 6 "    )\n" }{MPLTEXT 1 0 5 "  \+
+ )\n" }{MPLTEXT 1 0 4 "  )\n" }{MPLTEXT 1 0 3 " )\n" }{MPLTEXT 1 0 9 "
+end proc:" }}}{EXCHG {PARA 0 "> " 0 "" {MPLTEXT 1 0 16 "ShowEst:=proc(
+)\n" }{MPLTEXT 1 0 32 "#--------Estimation------------\n" }{MPLTEXT 1 
+0 35 "local N,x,Est,X,A,ST,ST2,x_save,i;\n" }{MPLTEXT 1 0 27 "global c
+omp, exch, NUM, a;\n" }{MPLTEXT 1 0 24 "N:=NUM; x_save:=x_nach;\n" }
+{MPLTEXT 1 0 27 "comp:=0; exch:=0; Est:=[];\n" }{MPLTEXT 1 0 11 "a:=x_
+nach;\n" }{MPLTEXT 1 0 58 "  SHoare(1,NUM,true,[]); Est:=[Est[],exch+r
+ound(comp/3)];\n" }{MPLTEXT 1 0 57 "  x:=x_nach; SShell(x); Est:=[Est[
+],exch+round(comp/3)];\n" }{MPLTEXT 1 0 58 "  x:=x_nach; SChoice(x); E
+st:=[Est[],exch+round(comp/3)];\n" }{MPLTEXT 1 0 58 "  x:=x_nach; SBub
+ble(x); Est:=[Est[],exch+round(comp/3)];\n" }{MPLTEXT 1 0 28 "  X:=con
+vert([Est],matrix):\n" }{MPLTEXT 1 0 61 "  ST2:=cat(\"\\n\",convert(Li
+stTools[Reverse](x_nach),string));\n" }{MPLTEXT 1 0 26 "  ST:=convert(
+NUM,string);" }}{PARA 0 "> " 0 "" {MPLTEXT 1 0 129 "  A:=matrixplot(X,
+ heights=histogram, title=cat(cat(cat(\"Number of elements = \",ST),\"
+\\n\\nBubble   Choice   Shell   Hoare\"),ST2)):" }}{PARA 0 "> " 0 "" 
+{MPLTEXT 1 0 11 "NUM:=N;   \n" }{MPLTEXT 1 0 9 "Display(\n" }{MPLTEXT 
+1 0 10 "  Maplet(\n" }{MPLTEXT 1 0 11 "   Window(\n" }{MPLTEXT 1 0 40 
+"    title=\"Estimation\",resizable=false,\n" }{MPLTEXT 1 0 12 "    la
+yout=\n" }{MPLTEXT 1 0 15 "    BoxLayout(\n" }{MPLTEXT 1 0 15 "    Box
+Column(\n" }{MPLTEXT 1 0 25 "     BoxRow(border=true,\n" }{MPLTEXT 1 
+0 31 "      BoxCell(\"Overall costs\")\n" }{MPLTEXT 1 0 8 "     ),\n" 
+}{MPLTEXT 1 0 25 "     BoxRow(border=true,\n" }{MPLTEXT 1 0 15 "      \+
+BoxCell(\n" }{MPLTEXT 1 0 83 "       Plotter[P3](display(A,insequence=
+true), continuous=false, background=grey))\n" }{MPLTEXT 1 0 8 "     ),
+\n" }{MPLTEXT 1 0 25 "     BoxRow(border=true,\n" }{MPLTEXT 1 0 15 "  \+
+    BoxCell(\n" }{MPLTEXT 1 0 58 "       Button(\"         OK         \+
+\",onclick=Shutdown()))\n" }{MPLTEXT 1 0 8 "     ) \n" }{MPLTEXT 1 0 
+6 "    )\n" }{MPLTEXT 1 0 6 "    )\n" }{MPLTEXT 1 0 5 "   )\n" }
+{MPLTEXT 1 0 4 "  )\n" }{MPLTEXT 1 0 3 " )\n" }{MPLTEXT 1 0 9 "end pro
+c:" }}}{EXCHG {PARA 0 "> " 0 "" {XPPEDIT 19 1 "Typesetting:-mrow(Types
+etting:-mo(\" \", mathvariant = \"normal\", fence = \"false\", separat
+or = \"false\", stretchy = \"false\", symmetric = \"false\", largeop =
+ \"false\", movablelimits = \"false\", accent = \"false\", lspace = \"
+0.0em\", rspace = \"0.0em\"));" "-I%mrowG6#/I+modulenameG6\"I,Typesett
+ingGI(_syslibGF'6#-I#moGF$6-Q\"~F'/%,mathvariantGQ'normalF'/%&fenceGQ&
+falseF'/%*separatorGF4/%)stretchyGF4/%*symmetricGF4/%(largeopGF4/%.mov
+ablelimitsGF4/%'accentGF4/%'lspaceGQ&0.0emF'/%'rspaceGFC" }}}{EXCHG 
+{PARA 0 "> " 0 "" {MPLTEXT 1 0 31 "Linear_search1:=proc(arr, key)\n" }
+{MPLTEXT 1 0 4 "    " }{MPLTEXT 1 0 11 "local N,i;\n" }{MPLTEXT 1 0 
+18 "    N:=nops(arr);\n" }{MPLTEXT 1 0 25 "    for i from 1 to N do\n"
+ }{MPLTEXT 1 0 29 "        if (arr[i]=key) then\n" }{MPLTEXT 1 0 22 " \+
+           return i;\n" }{MPLTEXT 1 0 16 "        end if:\n" }{MPLTEXT
+ 1 0 12 "    end do:\n" }{MPLTEXT 1 0 13 "    return N\n" }{MPLTEXT 1 
+0 9 "end proc:" }}}{EXCHG {PARA 0 "> " 0 "" {MPLTEXT 1 0 31 "Linear_se
+arch2:=proc(arr, key)\n" }{MPLTEXT 1 0 13 "    local i;\n" }{MPLTEXT 
+1 0 22 "    Append(arr, key);\n" }{MPLTEXT 1 0 10 "    i:=1;\n" }
+{MPLTEXT 1 0 7 "    do\n" }{MPLTEXT 1 0 15 "        i:=i+1\n" }
+{MPLTEXT 1 0 22 "    until(arr[i]=key):" }{MPLTEXT 1 0 1 "\n" }
 {MPLTEXT 1 0 13 "    return i\n" }{MPLTEXT 1 0 9 "end proc:" }}}
 {EXCHG {PARA 0 "> " 0 "" {XPPEDIT 0 1 "Typesetting:-mrow(Typesetting:-
 mi(\"\"), Typesetting:-mspace(height = \"0.0ex\", width = \"0.0em\", d
@@ -2737,196 +2932,177 @@ hy = \"false\", symmetric = \"false\", largeop = \"false\", movablelim
 its = \"false\", accent = \"false\", lspace = \"0.0em\", rspace = \"0.
 3333333em\"), Typesetting:-mn(\"10\", bold = \"false\", mathvariant = \+
 \"normal\")), mathvariant = \"bold\", fontweight = \"bold\"), Typesett
-ing:-mo(\";\", bold = \"false\", mathvariant = \"normal\", fence = \"f
-alse\", separator = \"true\", stretchy = \"false\", symmetric = \"fals
-e\", largeop = \"false\", movablelimits = \"false\", accent = \"false
-\", lspace = \"0.0em\", rspace = \"0.2777778em\"), Typesetting:-mspace
-(height = \"0.0ex\", width = \"0.0em\", depth = \"0.0ex\", linebreak =
- \"newline\"), Typesetting:-mo(\" \", bold = \"false\", mathvariant = \+
-\"normal\", fence = \"false\", separator = \"false\", stretchy = \"fal
-se\", symmetric = \"false\", largeop = \"false\", movablelimits = \"fa
-lse\", accent = \"false\", lspace = \"0.0em\", rspace = \"0.0em\"), Ty
-pesetting:-mi(\"arr\", bold = \"false\", italic = \"true\", mathvarian
-t = \"italic\"), Typesetting:-mo(\"&coloneq;\", bold = \"false\", math
-variant = \"normal\", fence = \"false\", separator = \"false\", stretc
-hy = \"false\", symmetric = \"false\", largeop = \"false\", movablelim
-its = \"false\", accent = \"false\", lspace = \"0.2777778em\", rspace \+
-= \"0.2777778em\"), Typesetting:-mi(\"data\", bold = \"false\", italic
- = \"true\", mathvariant = \"italic\"), Typesetting:-mfenced(Typesetti
-ng:-mrow(Typesetting:-mn(\"1\", bold = \"false\", mathvariant = \"norm
-al\")), bold = \"false\", mathvariant = \"normal\", open = \"[\", clos
-e = \"]\"), Typesetting:-mo(\";\", bold = \"false\", mathvariant = \"n
-ormal\", fence = \"false\", separator = \"true\", stretchy = \"false\"
-, symmetric = \"false\", largeop = \"false\", movablelimits = \"false
-\", accent = \"false\", lspace = \"0.0em\", rspace = \"0.2777778em\"))
-;" "-I%mrowG6#/I+modulenameG6\"I,TypesettingGI(_syslibGF'6.-I#miGF$6&Q
-%dataF'/%%boldGQ&falseF'/%'italicGQ%trueF'/%,mathvariantGQ'italicF'-I#
-moGF$6.Q*&coloneq;F'F//F6Q'normalF'/%&fenceGF1/%*separatorGF1/%)stretc
-hyGF1/%*symmetricGF1/%(largeopGF1/%.movablelimitsGF1/%'accentGF1/%'lsp
-aceGQ,0.2777778emF'/%'rspaceGFN-F,6&Q)readdataF'F/F2F5-I(mfencedGF$6%-
-F#6&-F,6&Q$catF'F/F2F5-FU6%-F#6&-F,6&Q&MyDirF'F/F2F5-F96.Q\",F'F/F<F>/
-FAF4FBFDFFFHFJ/FMQ&0.0emF'/FPQ,0.3333333emF'-I#msGF$6#Q)data.txtF'-F,6
-#Q!F'/F6Q%boldF'/%+fontweightGF]pF]o-I#mnGF$6%Q#10F'F/F<F\\pF^p-F96.Q
-\";F'F/F<F>F`oFBFDFFFHFJFaoFO-I'mspaceGF$6&/%'heightGQ&0.0exF'/%&width
-GFbo/%&depthGF\\q/%*linebreakGQ(newlineF'-F96.Q\"~F'F/F<F>F@FBFDFFFHFJ
-Fao/FPFbo-F,6&Q$arrF'F/F2F5F8F+-FU6'-F#6#-Fap6%Q\"1F'F/F<F/F</%%openGQ
-\"[F'/%&closeGQ\"]F'Fdp" }}{PARA 11 "" 1 "" {XPPMATH 20 ">I%dataG6\"7#
-7,$\"\"\"\"\"!$\"\"#F)$\"\"$F)$\"\"%F)$\"\"&F)$\"\"'F)$\"\"(F)$\"\")F)
-$\"\"*F)$\"#5F)" }}{PARA 11 "" 1 "" {XPPMATH 20 ">I$arrG6\"7,$\"\"\"\"
-\"!$\"\"#F($\"\"$F($\"\"%F($\"\"&F($\"\"'F($\"\"(F($\"\")F($\"\"*F($\"
-#5F(" }}}{PARA 208 "" 0 "" {TEXT 0 0 "" }}{EXCHG {PARA 0 "> " 0 "" 
-{MPLTEXT 1 0 32 "m:=[1, 2, 3, 5, 7, 10, 30, 100];" }}{PARA 11 "" 1 "" 
-{XPPMATH 20 ">I\"mG6\"7*\"\"\"\"\"#\"\"$\"\"&\"\"(\"#5\"#I\"$+\"" }}}
-{EXCHG {PARA 0 "> " 0 "" {MPLTEXT 1 0 23 "Ternary_search(arr, 4);" }}
-{PARA 11 "" 1 "" {XPPMATH 20 "\"\"%" }}}{EXCHG {PARA 0 "> " 0 "" 
-{XPPEDIT 0 1 "Typesetting:-mrow(Typesetting:-mo(\" \", bold = \"false
+ing:-mo(\":\", bold = \"false\", mathvariant = \"normal\", fence = \"f
+alse\", separator = \"false\", stretchy = \"false\", symmetric = \"fal
+se\", largeop = \"false\", movablelimits = \"false\", accent = \"false
+\", lspace = \"0.2777778em\", rspace = \"0.2777778em\"), Typesetting:-
+mspace(height = \"0.0ex\", width = \"0.0em\", depth = \"0.0ex\", lineb
+reak = \"newline\"), Typesetting:-mo(\" \", bold = \"false\", mathvari
+ant = \"normal\", fence = \"false\", separator = \"false\", stretchy =
+ \"false\", symmetric = \"false\", largeop = \"false\", movablelimits \+
+= \"false\", accent = \"false\", lspace = \"0.0em\", rspace = \"0.0em
+\"), Typesetting:-mi(\"arr\", bold = \"false\", italic = \"true\", mat
+hvariant = \"italic\"), Typesetting:-mo(\"&coloneq;\", bold = \"false
 \", mathvariant = \"normal\", fence = \"false\", separator = \"false\"
 , stretchy = \"false\", symmetric = \"false\", largeop = \"false\", mo
-vablelimits = \"false\", accent = \"false\", lspace = \"0.0em\", rspac
-e = \"0.0em\"));" "-I%mrowG6#/I+modulenameG6\"I,TypesettingGI(_syslibG
-F'6#-I#moGF$6.Q\"~F'/%%boldGQ&falseF'/%,mathvariantGQ'normalF'/%&fence
-GF1/%*separatorGF1/%)stretchyGF1/%*symmetricGF1/%(largeopGF1/%.movable
-limitsGF1/%'accentGF1/%'lspaceGQ&0.0emF'/%'rspaceGFE" }}}{EXCHG {PARA 
-0 "> " 0 "" {MPLTEXT 1 0 17 "Bubble:=proc(XXX)" }}{PARA 0 "> " 0 "" 
-{MPLTEXT 1 0 35 "    local X,N,A,p,exch,i,j,a,x,ST;\n" }{MPLTEXT 1 0 
-4 "    " }{MPLTEXT 1 0 17 "global comp,per;\n" }{MPLTEXT 1 0 4 "    " 
-}{MPLTEXT 1 0 8 "x:=XXX;\n" }{MPLTEXT 1 0 4 "    " }{MPLTEXT 1 0 24 "X
-:=convert([x],matrix):\n" }{MPLTEXT 1 0 4 "    " }{MPLTEXT 1 0 52 "ST:
-=cat(\"\\n\",convert(ListTools[Reverse](x),string));" }}{PARA 0 "> " 0
- "" {MPLTEXT 1 0 94 "    A:=[matrixplot(X, heights=histogram, title=ca
-t(\"BUBBLE.\\nComparisons=0 Exchanges=0\",ST))]:" }}{PARA 0 "> " 0 "" 
-{MPLTEXT 1 0 16 "    exch:=true:\n" }{MPLTEXT 1 0 4 "    " }{MPLTEXT 
-1 0 15 "N:=0: comp:=0;\n" }{MPLTEXT 1 0 4 "    " }{MPLTEXT 1 0 16 "whi
-le (exch) do\n" }{MPLTEXT 1 0 8 "        " }{MPLTEXT 1 0 14 "exch:=fal
-se; \n" }{MPLTEXT 1 0 8 "        " }{MPLTEXT 1 0 27 "for i from 1 to (
-NUM-1) do\n" }{MPLTEXT 1 0 26 "            comp:=comp+1;\n" }{MPLTEXT 
-1 0 34 "            if (x[i]>x[i+1]) then\n" }{MPLTEXT 1 0 25 "       \+
-         a:=x[i];\n" }{MPLTEXT 1 0 30 "                x[i]:=x[i+1];\n
-" }{MPLTEXT 1 0 27 "                x[i+1]:=a;\n" }{MPLTEXT 1 0 40 "  \+
-              X:=convert([x],matrix);\n" }{MPLTEXT 1 0 24 "           \+
-     N:=N+1;\n" }{MPLTEXT 1 0 69 "                ST:=cat(\"\\n\",conv
-ert(ListTools[Reverse](x),string));\n" }{MPLTEXT 1 0 57 "             \+
-   A:=[A[],matrixplot(X, heights=histogram,\n" }{MPLTEXT 1 0 85 "     \+
-               title=cat(cat(cat(\"BUBBLE.\\nComparisons=\",convert(co
-mp,string)),\n" }{MPLTEXT 1 0 66 "                    cat(\" Exchanges
-=\",convert(N,string))),ST) )];\n" }{MPLTEXT 1 0 28 "                e
-xch:=true;\n" }{MPLTEXT 1 0 20 "            end if;\n" }{MPLTEXT 1 0 
-8 "        " }{MPLTEXT 1 0 8 "end do:\n" }{MPLTEXT 1 0 4 "    " }
-{MPLTEXT 1 0 7 "end do:" }}{PARA 0 "> " 0 "" {MPLTEXT 1 0 57 "    ST:=
-cat(\"\\n\",convert(ListTools[Reverse](x),string));\n" }{MPLTEXT 1 0 
-4 "    " }{MPLTEXT 1 0 41 "A:=[A[],matrixplot(X, heights=histogram,\n"
- }{MPLTEXT 1 0 73 "        title=cat(cat(cat(\"BUBBLE.\\nComparisons=
-\",convert(comp,string)),\n" }{MPLTEXT 1 0 53 "        cat(\" Exchange
-s=\",convert(N,string))),ST))];\n" }{MPLTEXT 1 0 4 "    " }{MPLTEXT 1 
-0 30 "p:=display(A,insequence=true):" }}{PARA 0 "> " 0 "" {MPLTEXT 1 
-0 12 "    per:=N;\n" }{MPLTEXT 1 0 4 "    " }{MPLTEXT 1 0 9 "return p;
-" }}{PARA 0 "> " 0 "" {MPLTEXT 1 0 9 "end proc:" }}{PARA 0 "> " 0 "" 
-{XPPEDIT 0 1 "Typesetting:-mrow(Typesetting:-mo(\" \", bold = \"false
-\", mathvariant = \"normal\", fence = \"false\", separator = \"false\"
-, stretchy = \"false\", symmetric = \"false\", largeop = \"false\", mo
-vablelimits = \"false\", accent = \"false\", lspace = \"0.0em\", rspac
-e = \"0.0em\"));" "-I%mrowG6#/I+modulenameG6\"I,TypesettingGI(_syslibG
-F'6#-I#moGF$6.Q\"~F'/%%boldGQ&falseF'/%,mathvariantGQ'normalF'/%&fence
-GF1/%*separatorGF1/%)stretchyGF1/%*symmetricGF1/%(largeopGF1/%.movable
-limitsGF1/%'accentGF1/%'lspaceGQ&0.0emF'/%'rspaceGFE" }}}{EXCHG {PARA 
-0 "> " 0 "" {MPLTEXT 1 0 18 "maplet := Maplet(\n" }{MPLTEXT 1 0 53 "  \+
-      onstartup = Action(RunWindow('W0')),\n        " }{MPLTEXT 1 0 
-12 "Window[W0](\n" }{MPLTEXT 1 0 19 "            title=\"" }{MPLTEXT 
-1 0 30 "\302\350\347\363\340\353\350\347\340\366\350\377 \340\353\343
-\356\360\350\362\354\356\342 \357\356\350\361\352\340" }{MPLTEXT 1 0 
-18 "\",resizable=true, " }{MPLTEXT 1 0 48 "width = 500, height = 500, \+
-menubar = 'MB1', GRD," }{MPLTEXT 1 0 1 "\n" }{MPLTEXT 1 0 30 "        \+
-    layout=BoxLayout(\n" }{MPLTEXT 1 0 27 "                BoxColumn(
-\n" }{MPLTEXT 1 0 40 "                    BoxRow(border=true,\n" }
-{MPLTEXT 1 0 87 "                        BoxCell(RadioButton[RBBubble]
-(\"Linear1\",group=BG,value=true)),\n" }{MPLTEXT 1 0 88 "             \+
-           BoxCell(RadioButton[RBChoice](\"Linear2\",group=BG,value=fa
-lse)),\n" }{MPLTEXT 1 0 86 "                        BoxCell(RadioButto
-n[RBShell](\"Binary\",group=BG,value=false)),\n" }{MPLTEXT 1 0 86 "   \+
-                     BoxCell(RadioButton[RBHoare](\"Ternary\",group=BG
-,value=false))\n" }{MPLTEXT 1 0 23 "                    ),\n" }
-{MPLTEXT 1 0 40 "                    BoxRow(border=true,\n" }{MPLTEXT 
-1 0 91 "                        BoxCell(Button(\"Estimate\",onclick=Ev
-aluate(function=\"ShowEst\"))), \n" }{MPLTEXT 1 0 142 "               \+
-         BoxCell(Slider['Sl'](10..20, NUM,onchange='ChangeMas','showti
-cks', 'majorticks'=10, 'minorticks'=2,'snapticks'=true))\n" }{MPLTEXT 
-1 0 22 "                    )\n" }{MPLTEXT 1 0 18 "                )\n
-" }{MPLTEXT 1 0 14 "            )\n" }{MPLTEXT 1 0 10 "        )," }
-{MPLTEXT 1 0 1 "\n" }{MPLTEXT 1 0 78 "        Window[W1](title = \"\32
-1\357\360\340\342\352\340\", width = 350, height = 300, [HelpInfo]),\n
-" }{MPLTEXT 1 0 214 "        Window[W2](title = \"\316\341 \340\342\36
-2\356\360\345\", width = 250, height = 150, [\"\310\355\364\356\360\35
-4\340\366\350\377 \356\341 \340\342\362\356\360\345.\", \"\335\354\350
-\360\356\342 \321\340\354\350\360 313 \343\360\363\357\357\340\", \"em
-ail: samir.emirov.2001@mail.ru\", \"\316\361\345\355\374 2022\",\n    \+
-               Label(Image(Picblue))]),\n" }{MPLTEXT 1 0 124 "        \+
-Window[W3](title = \"\316 \357\360\356\343\360\340\354\354\345\", widt
-h = 350, height = 100, [\"\317\360\356\343\360\340\354\354\340 \360\34
-0\347\360\340\341\356\362\340\355\340 \355\340 \377\347\373\352\345 Ma
-ple \342 2022 \343\356\344\363\"]),\n" }{MPLTEXT 1 0 24 "        MenuB
-ar['MB1'](\n" }{MPLTEXT 1 0 116 "                Menu(\"\324\340\351\3
-53\", MenuItem(\"\315\356\342\373\351 \354\340\361\361\350\342\", Shut
-down()), MenuSeparator(), MenuItem(\"\302\373\365\356\344\", Shutdown(
-))),\n" }{MPLTEXT 1 0 138 "                Menu(\"\322\350\357 \354\34
-0\361\361\350\342\340\", MenuItem(\"\316\362\361\356\360\362\350\360\3
-56\342\340\355\355\373\351\", Shutdown()), MenuSeparator(), MenuItem(
-\"\315\345\356\362\361\356\360\362\350\360\356\342\340\355\355\373\351
-\", Shutdown())),\n" }{MPLTEXT 1 0 175 "                Menu(\"\314\34
-5\362\356\344 \357\356\350\361\352\340\", MenuItem(\"\313\350\355\345
-\351\355\373\351\", Shutdown()), MenuSeparator(), MenuItem(\"\301\350
-\355\340\360\355\373\351\", Shutdown()), MenuSeparator(), MenuItem(\"
-\322\345\360\355\340\360\355\373\351\", Shutdown())),\n" }{MPLTEXT 1 
-0 223 "                Menu(\"\317\356\354\356\371\374\", MenuItem(\"
-\320\363\352\356\342\356\344\361\362\342\356 \357\356\353\374\347\356
-\342\340\362\345\353\377\", RunWindow('W1')), MenuSeparator(), MenuIte
-m(\"\316\341 \340\342\362\356\360\345\", RunWindow('W2')), MenuSeparat
-or(),\n                     MenuItem(\"\316 \357\360\356\343\360\340\3
-54\354\345\", RunWindow('W3')))\n" }{MPLTEXT 1 0 19 "        ),\n     \+
-   " }{MPLTEXT 1 0 55 "ButtonGroup[BG](onchange=Evaluate(function=\"Ch
-ange\")),\n" }{MPLTEXT 1 0 8 "        " }{MPLTEXT 1 0 48 "Action['Chan
-geMas'](Evaluate(function='ReSort'))" }{MPLTEXT 1 0 1 "\n" }{MPLTEXT 
-1 0 2 "):" }}}{EXCHG {PARA 0 "> " 0 "" {MPLTEXT 1 0 25 "Maplets[Displa
-y](maplet);" }{XPPEDIT 0 1 "Typesetting:-mrow(Typesetting:-mo(\" \", b
-old = \"false\", mathvariant = \"normal\", fence = \"false\", separato
-r = \"false\", stretchy = \"false\", symmetric = \"false\", largeop = \+
-\"false\", movablelimits = \"false\", accent = \"false\", lspace = \"0
-.0em\", rspace = \"0.0em\"));" "-I%mrowG6#/I+modulenameG6\"I,Typesetti
-ngGI(_syslibGF'6#-I#moGF$6.Q\"~F'/%%boldGQ&falseF'/%,mathvariantGQ'nor
-malF'/%&fenceGF1/%*separatorGF1/%)stretchyGF1/%*symmetricGF1/%(largeop
-GF1/%.movablelimitsGF1/%'accentGF1/%'lspaceGQ&0.0emF'/%'rspaceGFE" }}}
-{EXCHG {PARA 0 "> " 0 "" {MPLTEXT 1 0 11 "M:=Maplet(\n" }{MPLTEXT 1 0 
-4 "    " }{MPLTEXT 1 0 8 "Window(\n" }{MPLTEXT 1 0 65 "        title=
-\"Visualization of search methods\",resizable=false,\n" }{MPLTEXT 1 0 
-15 "        layout=" }{MPLTEXT 1 0 11 "BoxLayout(\n" }{MPLTEXT 1 0 23 
-"            BoxColumn(\n" }{MPLTEXT 1 0 36 "                BoxRow(bo
-rder=true,\n" }{MPLTEXT 1 0 28 "                    BoxCell(" }
-{MPLTEXT 1 0 56 "RadioButton[RBBubble](\"Linear1\",group=BG,value=fals
-e)),\n" }{MPLTEXT 1 0 20 "                    " }{MPLTEXT 1 0 60 "BoxC
-ell(RadioButton[RBChoice](\"Linear2\",group=BG,value=true)" }{MPLTEXT 
-1 0 3 "),\n" }{MPLTEXT 1 0 79 "                    BoxCell(RadioButton
-[RBShell](\"Binary\",group=BG,value=false)" }{MPLTEXT 1 0 3 "),\n" }
-{MPLTEXT 1 0 80 "                    BoxCell(RadioButton[RBHoare](\"Te
-rnary\",group=BG,value=false)" }{MPLTEXT 1 0 1 ")" }{MPLTEXT 1 0 1 "\n
-" }{MPLTEXT 1 0 19 "                ),\n" }{MPLTEXT 1 0 16 "          \+
-      " }{MPLTEXT 1 0 20 "BoxRow(border=true,\n" }{MPLTEXT 1 0 28 "   \+
-                 BoxCell(" }{MPLTEXT 1 0 59 "Button(\"Estimate\",oncli
-ck=Evaluate(function=\"ShowEst\"))), \n" }{MPLTEXT 1 0 137 "          \+
-          BoxCell(Slider['Sl'](10..20, NUM,onchange='ChangeMas','showt
-icks', 'majorticks'=10, 'minorticks'=2,'snapticks'=true))" }{MPLTEXT 
-1 0 1 "\n" }{MPLTEXT 1 0 17 "                )" }{MPLTEXT 1 0 1 "\n" }
-{MPLTEXT 1 0 14 "            )\n" }{MPLTEXT 1 0 10 "        )\n" }
-{MPLTEXT 1 0 7 "    ),\n" }{MPLTEXT 1 0 4 "    " }{MPLTEXT 1 0 55 "But
-tonGroup[BG](onchange=Evaluate(function=\"Change\")),\n" }{MPLTEXT 1 
-0 4 "    " }{MPLTEXT 1 0 49 "Action['ChangeMas'](Evaluate(function='Re
-Sort'))\n" }{MPLTEXT 1 0 2 "):" }}}{EXCHG {PARA 0 "> " 0 "" {MPLTEXT 
-1 0 20 "Maplets[Display](M);" }}}{EXCHG {PARA 0 "> " 0 "" {XPPEDIT 0 1
- "Typesetting:-mrow(Typesetting:-mo(\" \", bold = \"false\", mathvaria
-nt = \"normal\", fence = \"false\", separator = \"false\", stretchy = \+
+vablelimits = \"false\", accent = \"false\", lspace = \"0.2777778em\",
+ rspace = \"0.2777778em\"), Typesetting:-mi(\"data\", bold = \"false\"
+, italic = \"true\", mathvariant = \"italic\"), Typesetting:-mfenced(T
+ypesetting:-mrow(Typesetting:-mn(\"1\", bold = \"false\", mathvariant \+
+= \"normal\")), bold = \"false\", mathvariant = \"normal\", open = \"[
+\", close = \"]\"), Typesetting:-mo(\";\", bold = \"false\", mathvaria
+nt = \"normal\", fence = \"false\", separator = \"true\", stretchy = \+
 \"false\", symmetric = \"false\", largeop = \"false\", movablelimits =
- \"false\", accent = \"false\", lspace = \"0.0em\", rspace = \"0.0em\"
-));" "-I%mrowG6#/I+modulenameG6\"I,TypesettingGI(_syslibGF'6#-I#moGF$6
-.Q\"~F'/%%boldGQ&falseF'/%,mathvariantGQ'normalF'/%&fenceGF1/%*separat
-orGF1/%)stretchyGF1/%*symmetricGF1/%(largeopGF1/%.movablelimitsGF1/%'a
-ccentGF1/%'lspaceGQ&0.0emF'/%'rspaceGFE" }}}}
+ \"false\", accent = \"false\", lspace = \"0.0em\", rspace = \"0.27777
+78em\"));" "-I%mrowG6#/I+modulenameG6\"I,TypesettingGI(_syslibGF'6.-I#
+miGF$6&Q%dataF'/%%boldGQ&falseF'/%'italicGQ%trueF'/%,mathvariantGQ'ita
+licF'-I#moGF$6.Q*&coloneq;F'F//F6Q'normalF'/%&fenceGF1/%*separatorGF1/
+%)stretchyGF1/%*symmetricGF1/%(largeopGF1/%.movablelimitsGF1/%'accentG
+F1/%'lspaceGQ,0.2777778emF'/%'rspaceGFN-F,6&Q)readdataF'F/F2F5-I(mfenc
+edGF$6%-F#6&-F,6&Q$catF'F/F2F5-FU6%-F#6&-F,6&Q&MyDirF'F/F2F5-F96.Q\",F
+'F/F<F>/FAF4FBFDFFFHFJ/FMQ&0.0emF'/FPQ,0.3333333emF'-I#msGF$6#Q)data.t
+xtF'-F,6#Q!F'/F6Q%boldF'/%+fontweightGF]pF]o-I#mnGF$6%Q#10F'F/F<F\\pF^
+p-F96.Q\":F'F/F<F>F@FBFDFFFHFJFLFO-I'mspaceGF$6&/%'heightGQ&0.0exF'/%&
+widthGFbo/%&depthGF\\q/%*linebreakGQ(newlineF'-F96.Q\"~F'F/F<F>F@FBFDF
+FFHFJFao/FPFbo-F,6&Q$arrF'F/F2F5F8F+-FU6'-F#6#-Fap6%Q\"1F'F/F<F/F</%%o
+penGQ\"[F'/%&closeGQ\"]F'-F96.Q\";F'F/F<F>F`oFBFDFFFHFJFaoFO" }}{PARA 
+11 "" 1 "" {XPPMATH 20 ">I$arrG6\"7,$\"\"\"\"\"!$\"\"#F($\"\"$F($\"\"%
+F($\"\"&F($\"\"'F($\"\"(F($\"\")F($\"\"*F($\"#5F(" }}}{PARA 208 "" 0 "
+" {TEXT 0 0 "" }}{EXCHG {PARA 0 "> " 0 "" {MPLTEXT 1 0 32 "m:=[1, 2, 3
+, 5, 7, 10, 30, 100];" }}{PARA 11 "" 1 "" {XPPMATH 20 ">I\"mG6\"7*\"\"
+\"\"\"#\"\"$\"\"&\"\"(\"#5\"#I\"$+\"" }}}{EXCHG {PARA 0 "> " 0 "" 
+{MPLTEXT 1 0 23 "Ternary_search(arr, 4);" }}{PARA 11 "" 1 "" {XPPMATH 
+20 "\"\"%" }}}{EXCHG {PARA 0 "> " 0 "" {XPPEDIT 0 1 "Typesetting:-mrow
+(Typesetting:-mo(\" \", bold = \"false\", mathvariant = \"normal\", fe
+nce = \"false\", separator = \"false\", stretchy = \"false\", symmetri
+c = \"false\", largeop = \"false\", movablelimits = \"false\", accent \+
+= \"false\", lspace = \"0.0em\", rspace = \"0.0em\"));" "-I%mrowG6#/I+
+modulenameG6\"I,TypesettingGI(_syslibGF'6#-I#moGF$6.Q\"~F'/%%boldGQ&fa
+lseF'/%,mathvariantGQ'normalF'/%&fenceGF1/%*separatorGF1/%)stretchyGF1
+/%*symmetricGF1/%(largeopGF1/%.movablelimitsGF1/%'accentGF1/%'lspaceGQ
+&0.0emF'/%'rspaceGFE" }}}{EXCHG {PARA 0 "> " 0 "" {MPLTEXT 1 0 17 "Bub
+ble:=proc(XXX)" }}{PARA 0 "> " 0 "" {MPLTEXT 1 0 35 "    local X,N,A,p
+,exch,i,j,a,x,ST;\n" }{MPLTEXT 1 0 4 "    " }{MPLTEXT 1 0 17 "global c
+omp,per;\n" }{MPLTEXT 1 0 4 "    " }{MPLTEXT 1 0 8 "x:=XXX;\n" }
+{MPLTEXT 1 0 4 "    " }{MPLTEXT 1 0 24 "X:=convert([x],matrix):\n" }
+{MPLTEXT 1 0 4 "    " }{MPLTEXT 1 0 52 "ST:=cat(\"\\n\",convert(ListTo
+ols[Reverse](x),string));" }}{PARA 0 "> " 0 "" {MPLTEXT 1 0 94 "    A:
+=[matrixplot(X, heights=histogram, title=cat(\"BUBBLE.\\nComparisons=0
+ Exchanges=0\",ST))]:" }}{PARA 0 "> " 0 "" {MPLTEXT 1 0 16 "    exch:=
+true:\n" }{MPLTEXT 1 0 4 "    " }{MPLTEXT 1 0 15 "N:=0: comp:=0;\n" }
+{MPLTEXT 1 0 4 "    " }{MPLTEXT 1 0 16 "while (exch) do\n" }{MPLTEXT 
+1 0 8 "        " }{MPLTEXT 1 0 14 "exch:=false; \n" }{MPLTEXT 1 0 8 " \+
+       " }{MPLTEXT 1 0 27 "for i from 1 to (NUM-1) do\n" }{MPLTEXT 1 
+0 26 "            comp:=comp+1;\n" }{MPLTEXT 1 0 34 "            if (x
+[i]>x[i+1]) then\n" }{MPLTEXT 1 0 25 "                a:=x[i];\n" }
+{MPLTEXT 1 0 30 "                x[i]:=x[i+1];\n" }{MPLTEXT 1 0 27 "  \+
+              x[i+1]:=a;\n" }{MPLTEXT 1 0 40 "                X:=conve
+rt([x],matrix);\n" }{MPLTEXT 1 0 24 "                N:=N+1;\n" }
+{MPLTEXT 1 0 69 "                ST:=cat(\"\\n\",convert(ListTools[Rev
+erse](x),string));\n" }{MPLTEXT 1 0 57 "                A:=[A[],matrix
+plot(X, heights=histogram,\n" }{MPLTEXT 1 0 85 "                    ti
+tle=cat(cat(cat(\"BUBBLE.\\nComparisons=\",convert(comp,string)),\n" }
+{MPLTEXT 1 0 66 "                    cat(\" Exchanges=\",convert(N,str
+ing))),ST) )];\n" }{MPLTEXT 1 0 28 "                exch:=true;\n" }
+{MPLTEXT 1 0 20 "            end if;\n" }{MPLTEXT 1 0 8 "        " }
+{MPLTEXT 1 0 8 "end do:\n" }{MPLTEXT 1 0 4 "    " }{MPLTEXT 1 0 7 "end
+ do:" }}{PARA 0 "> " 0 "" {MPLTEXT 1 0 57 "    ST:=cat(\"\\n\",convert
+(ListTools[Reverse](x),string));\n" }{MPLTEXT 1 0 4 "    " }{MPLTEXT 
+1 0 41 "A:=[A[],matrixplot(X, heights=histogram,\n" }{MPLTEXT 1 0 73 "
+        title=cat(cat(cat(\"BUBBLE.\\nComparisons=\",convert(comp,stri
+ng)),\n" }{MPLTEXT 1 0 53 "        cat(\" Exchanges=\",convert(N,strin
+g))),ST))];\n" }{MPLTEXT 1 0 4 "    " }{MPLTEXT 1 0 30 "p:=display(A,i
+nsequence=true):" }}{PARA 0 "> " 0 "" {MPLTEXT 1 0 12 "    per:=N;\n" 
+}{MPLTEXT 1 0 4 "    " }{MPLTEXT 1 0 9 "return p;" }}{PARA 0 "> " 0 ""
+ {MPLTEXT 1 0 9 "end proc:" }}{PARA 0 "> " 0 "" {XPPEDIT 0 1 "" "%#%?G
+" }}}{EXCHG {PARA 0 "> " 0 "" {MPLTEXT 1 0 18 "maplet := Maplet(\n" }
+{MPLTEXT 1 0 53 "        onstartup = Action(RunWindow('W0')),\n       \+
+ " }{MPLTEXT 1 0 12 "Window[W0](\n" }{MPLTEXT 1 0 19 "            titl
+e=\"" }{MPLTEXT 1 0 30 "\302\350\347\363\340\353\350\347\340\366\350\3
+77 \340\353\343\356\360\350\362\354\356\342 \357\356\350\361\352\340" 
+}{MPLTEXT 1 0 18 "\",resizable=true, " }{MPLTEXT 1 0 48 "width = 800, \+
+height = 800, menubar = 'MB1', GRD," }{MPLTEXT 1 0 1 "\n" }{MPLTEXT 1 
+0 30 "            layout=BoxLayout(\n" }{MPLTEXT 1 0 27 "             \+
+   BoxColumn(\n" }{MPLTEXT 1 0 40 "                    BoxRow(border=t
+rue,\n" }{MPLTEXT 1 0 87 "                        BoxCell(RadioButton[
+RBBubble](\"Linear1\",group=BG,value=true)),\n" }{MPLTEXT 1 0 88 "    \+
+                    BoxCell(RadioButton[RBChoice](\"Linear2\",group=BG
+,value=false)),\n" }{MPLTEXT 1 0 86 "                        BoxCell(R
+adioButton[RBShell](\"Binary\",group=BG,value=false)),\n" }{MPLTEXT 1 
+0 86 "                        BoxCell(RadioButton[RBHoare](\"Ternary\"
+,group=BG,value=false))\n" }{MPLTEXT 1 0 23 "                    ),\n"
+ }{MPLTEXT 1 0 40 "                    BoxRow(border=true,\n" }
+{MPLTEXT 1 0 91 "                        BoxCell(Button(\"Estimate\",o
+nclick=Evaluate(function=\"ShowEst\"))), \n" }{MPLTEXT 1 0 142 "      \+
+                  BoxCell(Slider['Sl'](10..20, NUM,onchange='ChangeMas
+','showticks', 'majorticks'=10, 'minorticks'=2,'snapticks'=true))\n" }
+{MPLTEXT 1 0 43 "                    ),\n                    " }
+{MPLTEXT 1 0 20 "BoxRow(border=true,\n" }{MPLTEXT 1 0 64 "            \+
+            BoxCell(Label[LBubble](\"Linear1 (?)\")),\n" }{MPLTEXT 1 
+0 133 "                        BoxCell(Label[LChoice](cat(cat(cat(\"Li
+near2 (\",convert(comp,string)), cat(\" ,\",convert(per,string))),\")
+\"))),\n" }{MPLTEXT 1 0 124 "                        BoxCell(Label[LSh
+ell](\"Binary (?)\")),\n                        BoxCell(Label[LHoare](
+\"Ternary (?)\"))\n" }{MPLTEXT 1 0 43 "                    ),\n       \+
+             " }{MPLTEXT 1 0 20 "BoxRow(border=true,\n" }{MPLTEXT 1 0 
+93 "                        BoxCell(Button(\"Statistics\",onclick=Eval
+uate(function=\"ShowStat\"))),\n" }{MPLTEXT 1 0 87 "                  \+
+      BoxCell(Button(\"Help\",onclick=Evaluate(function=\"ShowHelp\"))
+),\n" }{MPLTEXT 1 0 87 "                        BoxCell(Button(\"About
+\",onclick=Evaluate(function=\"ShowAbout\")))" }{MPLTEXT 1 0 1 "\n" }
+{MPLTEXT 1 0 22 "                    )\n" }{MPLTEXT 1 0 36 "          \+
+      )\n            )    \n" }{MPLTEXT 1 0 10 "        )," }{MPLTEXT 
+1 0 1 "\n" }{MPLTEXT 1 0 78 "        Window[W1](title = \"\321\357\360
+\340\342\352\340\", width = 700, height = 700, [HelpInfo]),\n" }
+{MPLTEXT 1 0 86 "        Window[W2](title = \"\316\341 \340\342\362\35
+6\360\345\", width = 700, height = 700,\n                   " }
+{MPLTEXT 1 0 7 "layout=" }{MPLTEXT 1 0 10 "BoxLayout(" }{MPLTEXT 1 0 
+339 "[\"\\t\310\355\364\356\360\354\340\366\350\377 \356\341 \340\342
+\362\356\360\345:\\n\n                                      \\t\335\35
+4\350\360\356\342 \321\340\354\350\360 313 \343\360\363\357\357\340\\n
+\n                                      \\temail: samir.emirov.2001@ma
+il.ru\\n\n                                      \\tGitHub: https://git
+hub.com/alavessi/CMC-prac-5sem\\n\n                                   \+
+   \\t\316\361\345\355\374 2022\\n\",\n                       " }
+{MPLTEXT 1 0 66 "             Label('halign'=center,'valign'=center,im
+age=MyPhoto, " }{MPLTEXT 1 0 31 "Button(\"OK\",onclick=Shutdown())" }
+{MPLTEXT 1 0 1 ")" }{MPLTEXT 1 0 13 "])),\n        " }{MPLTEXT 1 0 41 
+"Image[MyPhoto](cat(MyDir,\"\\\\photo.jpg\"))," }{MPLTEXT 1 0 1 "\n" }
+{MPLTEXT 1 0 124 "        Window[W3](title = \"\316 \357\360\356\343\3
+60\340\354\354\345\", width = 700, height = 700, [\"\317\360\356\343\3
+60\340\354\354\340 \360\340\347\360\340\341\356\362\340\355\340 \355\3
+40 \377\347\373\352\345 Maple \342 2022 \343\356\344\363\"]),\n" }
+{MPLTEXT 1 0 24 "        MenuBar['MB1'](\n" }{MPLTEXT 1 0 126 "       \+
+         Menu(\"\324\340\351\353\", MenuItem(\"\315\356\342\373\351 \3
+54\340\361\361\350\342 (&N)\", Shutdown()), MenuSeparator(), MenuItem(
+\"\302\373\365\356\344 (&Q)\", Shutdown())),\n" }{MPLTEXT 1 0 148 "   \+
+             Menu(\"\322\350\357 \354\340\361\361\350\342\340\", MenuI
+tem(\"\316\362\361\356\360\362\350\360\356\342\340\355\355\373\351 (&S
+)\", Shutdown()), MenuSeparator(), MenuItem(\"\315\345\356\362\361\356
+\360\362\350\360\356\342\340\355\355\373\351 (&R)\", Shutdown())),\n" 
+}{MPLTEXT 1 0 190 "                Menu(\"\314\345\362\356\344 \357\35
+6\350\361\352\340\", MenuItem(\"\313\350\355\345\351\355\373\351 (&L)
+\", Shutdown()), MenuSeparator(), MenuItem(\"\301\350\355\340\360\355
+\373\351 (&B)\", Shutdown()), MenuSeparator(), MenuItem(\"\322\345\360
+\355\340\360\355\373\351 (&T)\", Shutdown())),\n" }{MPLTEXT 1 0 238 " \+
+               Menu(\"\317\356\354\356\371\374\", MenuItem(\"\320\363
+\352\356\342\356\344\361\362\342\356 \357\356\353\374\347\356\342\340
+\362\345\353\377 (&H)\", RunWindow('W1')), MenuSeparator(), MenuItem(
+\"\316\341 \340\342\362\356\360\345 (&A)\", RunWindow('W2')), MenuSepa
+rator(),\n                     MenuItem(\"\316 \357\360\356\343\360\34
+0\354\354\345 (&D)\", RunWindow('W3')))\n" }{MPLTEXT 1 0 19 "        )
+,\n        " }{MPLTEXT 1 0 55 "ButtonGroup[BG](onchange=Evaluate(funct
+ion=\"Change\")),\n" }{MPLTEXT 1 0 8 "        " }{MPLTEXT 1 0 48 "Acti
+on['ChangeMas'](Evaluate(function='ReSort'))" }{MPLTEXT 1 0 1 "\n" }
+{MPLTEXT 1 0 2 "):" }}}{EXCHG {PARA 0 "> " 0 "" {MPLTEXT 1 0 25 "Maple
+ts[Display](maplet);" }{XPPEDIT 0 1 "Typesetting:-mrow(Typesetting:-mo
+(\" \", bold = \"false\", mathvariant = \"normal\", fence = \"false\",
+ separator = \"false\", stretchy = \"false\", symmetric = \"false\", l
+argeop = \"false\", movablelimits = \"false\", accent = \"false\", lsp
+ace = \"0.0em\", rspace = \"0.0em\"));" "-I%mrowG6#/I+modulenameG6\"I,
+TypesettingGI(_syslibGF'6#-I#moGF$6.Q\"~F'/%%boldGQ&falseF'/%,mathvari
+antGQ'normalF'/%&fenceGF1/%*separatorGF1/%)stretchyGF1/%*symmetricGF1/
+%(largeopGF1/%.movablelimitsGF1/%'accentGF1/%'lspaceGQ&0.0emF'/%'rspac
+eGFE" }}}{EXCHG {PARA 0 "> " 0 "" {MPLTEXT 1 0 0 "" }}}}
 {MARK "0 0 0" 0 }{VIEWOPTS 1 1 0 94 100 1803 1 1 1 1 }{PAGENUMBERS 0 
 1 2 33 1 1 }
