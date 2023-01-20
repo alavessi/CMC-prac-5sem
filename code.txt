@@ -1,0 +1,84 @@
+restart:
+with(Maplets):
+with(Maplets[Elements]):
+MyDir:="C:\\Users\\emiro\\OneDrive\\Рабочий стол\\проги\\ВМК\\5sem\\Maple\\project\\":
+restart:
+with(Maplets):
+with(Maplets:-Elements):
+with(plots):
+
+with(student):
+NULL;
+
+HelpInfo:="Визуализатор алгоритмов поиска\n
+        \tВведите набор чисел в файл data.txt, расположенный в текущей директории.\n
+        \tВведите число, номер которого в этом наборе Вы хотите найти.\n
+        \tЕсли массив неупорядочен, в нем применим только линейный поиск.
+ \tВ случае отсортированного массива Вы можете выбрать желаемый метод поиска из следующего списка:\n
+ \t\tЛинейный\n
+ \t\tБинарный\n
+ \t\tТернарный\n":
+
+
+Linear_search:=proc(arr, key)
+    local N,i;
+    N:=nops(arr);
+    for i from 1 to N do
+        if (arr[i]=key) then
+            return i;
+        end if:
+    end do:
+    return N
+end proc:
+
+Binary_search := proc(arr, key) local left, middle, right; left := 1; right := nops(arr); do break; if right < left; middle := floor(1/2*left + 1/2*right); if arr[middle] = key then return middle; end if; if arr[middle] < key then left := middle + 1; end if; if key < arr[middle] then right := middle - 1; end if; end do; end proc;
+
+Ternary_search := proc(arr, key) local left, left_mid, right_mid, right; left := 1; right := nops(arr); do break; if right < left; left_mid := left + floor(1/3*right - 1/3*left); right_mid := left + floor(2/3*right - 2/3*left); if arr[left_mid] = key then return left_mid; end if; if arr[right_mid] = key then return right_mid; end if; if key < arr[left_mid] then right := left_mid - 1; end if; if arr[right_mid] < key then left := right_mid + 1; end if; if arr[left_mid] < key and key < arr[right_mid] then left := left_mid + 1; right := right_mid - 1; end if; end do; end proc;
+
+MyDir := "C:\\Users\\emiro\\OneDrive\\Рабочий стол\\проги\\ВМК\\5sem\\Maple\\project\\";
+data := readdata(cat(MyDir, "data.txt"), 10);
+arr := data[1];
+
+
+Linear_search(arr, m);
+
+
+maplet := Maplet(
+        onstartup = Action(RunWindow('W0')),
+        Window[W0](
+            title="Визуализация алгоритмов поиска",resizable=true, width = 600, height = 800, menubar = 'MB1', GRD,
+            layout=BoxLayout(
+                BoxColumn(
+                    BoxRow(border=true,
+                        BoxCell(RadioButton[RBLinear]("Linear",group=BG,value=true)),
+                        BoxCell(RadioButton[RBBinary]("Binary",group=BG,value=false)),
+                        BoxCell(RadioButton[RBTernary]("Ternary",group=BG,value=false))
+                    ),
+                    BoxRow(border=true,
+                        BoxCell(Label[LLinear](cat(cat(cat("Linear (",convert(comp,string)), cat(" ,",convert(per,string))),")"))),
+                        BoxCell(Label[LBinary]("Binary (?)")),
+                        BoxCell(Label[LTernary]("Ternary (?)"))
+                    )
+                )
+            )    
+        ),
+        Window[W1](title = "Справка", width = 700, height = 700, [HelpInfo]),
+        Window[W2](title = "Об авторе", width = 700, height = 700,
+                   layout=BoxLayout(["\tИнформация об авторе:\n
+                                      \tЭмиров Самир 313 группа\n
+                                      \temail: samir.emirov.2001@mail.ru\n
+                                      \tGitHub: https://github.com/alavessi/CMC-prac-5sem\n
+                                      \tОсень 2022\n",
+                                    Label('halign'=center,'valign'=center,image=MyPhoto, Button("OK",onclick=Shutdown()))])),
+        Image[MyPhoto](cat(MyDir,"\\photo.jpg")),
+        Window[W3](title = "О программе", width = 700, height = 700, ["Программа разработана на языке Maple в 2022 году"]),
+        MenuBar['MB1'](
+                Menu("Файл", MenuItem("Новый массив (&N)", Shutdown()), MenuSeparator(), MenuItem("Выход (&Q)", Shutdown())),
+                Menu("Тип массива", MenuItem("Отсортированный (&S)", Shutdown()), MenuSeparator(), MenuItem("Неотсортированный (&R)", Shutdown())),
+                Menu("Метод поиска", MenuItem("Линейный (&L)", Shutdown()), MenuSeparator(), MenuItem("Бинарный (&B)", Shutdown()), MenuSeparator(), MenuItem("Тернарный (&T)", Shutdown())),
+                Menu("Помощь", MenuItem("Руководство пользователя (&H)", RunWindow('W1')), MenuSeparator(), MenuItem("Об авторе (&A)", RunWindow('W2')), MenuSeparator(),
+                     MenuItem("О программе (&D)", RunWindow('W3')))
+        ),
+        ButtonGroup[BG](onchange=Evaluate(function=""))
+):
+Maplets[Display](maplet);
