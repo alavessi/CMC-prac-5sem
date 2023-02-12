@@ -1,0 +1,351 @@
+restart:
+
+
+GenerateArr := proc(cur_arr, iter):
+    local n, i, arr, str, offset;
+    n := Maplets:-Tools:-Get('Sl'('value'));
+    arr := Array(1..n);
+    arr[1] := 1;
+    offset := rand(1..100);
+    for i from 1 to n do
+        
+        arr[i] := offset();    
+    end do:
+    Maplets:-Tools:-Set('bi'('enabled')=false);
+    Maplets:-Tools:-Set('lin'('value')=true);
+    Maplets:-Tools:-Set('bi'('value')=false);
+    cur_arr[1] := arr;
+    str := convert(convert(cur_arr[1], list), string);
+    Maplets:-Tools:-Set('L'="-");
+    Maplets:-Tools:-Set('B'="-");
+    iter[1] := 0;
+    iter[2] := 0;
+    Maplets:-Tools:-Set('TB1' = str[2..(StringTools[Length](str) - 1)]);
+end proc:
+    
+Ssort := proc(cur_arr, iter):
+    iter[1] := 0;
+    iter[2] := 0;
+    if ArrayTools[Size](cur_arr[1])[2] <> 1 then
+        cur_arr[1] := sort(cur_arr[1]);
+        Maplets:-Tools:-Set('bi'('enabled')=true);
+        Maplets:-Tools:-Set('lin'('value')=true);
+        Maplets:-Tools:-Set('bi'('value')=false);
+        local str;
+        str := convert(convert(cur_arr[1], list), string);
+        Maplets:-Tools:-Set('L'="-");
+        Maplets:-Tools:-Set('B'="-");
+        Maplets:-Tools:-Set('TB1' = str[2..(StringTools[Length](str) - 1)]);
+    end if;
+end proc:
+cur_arr := Array(1..1):
+iter := Array(1..2):
+get_color := proc(i, left, right, cur):
+    piecewise(
+        i = cur, red,
+        i = left, blue,
+        i = right, COLOUR(RGB, 1, 0.54, 0),
+        i = cur, red,
+        (left <= i and right >= i) or left = -1, white,
+        COLOUR(RGB, 0.6, 0.6, 0.6)
+    )
+end proc:
+
+str_num := proc(a, b):
+    if a > b then
+        cat(convert(a, string), " > ", convert(b, string));
+    elif a = b then
+        cat(convert(a, string), " = ", convert(b, string));
+    elif a < b then
+        cat(convert(a, string), " < ", convert(b, string));
+    end if;
+end proc:
+
+Draw_frame := proc(cur_arr, left, right, cur, goal):
+    local n, i, gist;
+    n := ArrayTools[Size](cur_arr)[2];
+    if goal <> -1 then
+        gist := Array(1..(n + 1)):
+    else
+        gist := Array(1..n):
+    end if;
+    for i from 1 to n do
+        gist[i] := plottools[cuboid]([i-1, 0, 0], [i, 1, cur_arr[n-i+1]], color = get_color(n-i+1, left, right, cur));
+        if (n-i+1 = cur) and (goal <> -1) then:
+            gist[n + 1] := plottools[cuboid]([i-1, 1, 0], [i, 2, goal], color = green, transparency = 0.4)
+        end if;
+    end do:
+    if (goal <> -1) then
+        plots[display](convert(gist, list), title=str_num(cur_arr[cur], goal),axes=none, light=[20, 20, 1, 1, 1],  orientation=[85, 85, 0]);
+    else
+        plots[display](convert(gist, list), axes=none, light=[20, 20, 1, 1, 1],  orientation=[85, 85, 0]);
+    end if;
+end proc:
+
+Draw_final := proc(cur_arr, ind, col):
+    local n, i, gist;
+    n := ArrayTools[Size](cur_arr)[2];
+    gist := Array(1..n):
+    for i from 1 to n do
+        if n-i+1 = ind then
+            gist[i] := plottools[cuboid]([i-1, 0, 0], [i, 1, cur_arr[n-i+1]], color = col);
+        else
+            gist[i] := plottools[cuboid]([i-1, 0, 0], [i, 1, cur_arr[n-i+1]], color = white);
+        end if:
+        
+    end do:
+    if ind <> -1 then
+        plots[display](convert(gist, list), title=cat("Элемент находится под номером ", convert(ind, string)), axes=none, light=[20, 20, 1, 1, 1],  orientation=[85, 85, 0]);
+    else
+        plots[display](convert(gist, list), title=cat("Элемент не найден!"), axes=none, light=[20, 20, 1, 1, 1],  orientation=[85, 85, 0]);
+    end if;
+end proc:
+
+animation := Arrray(1..2):
+
+LinearSearch := proc(cur_arr, key, animation, iter):
+    local n, i, anim;
+    n := ArrayTools[Size](cur_arr)[2];
+    anim := Array(1..0):
+    for i from 1 to n do
+        if cur_arr[i] = key then
+            ArrayTools[Append](anim, Draw_frame(cur_arr, -1, -1, i, key));
+            ArrayTools[Append](anim, Draw_final(cur_arr, i, green));
+            break;
+        else
+            ArrayTools[Append](anim, Draw_frame(cur_arr, -1, -1, i, key));
+        end if;
+    end do:
+    if i - 1 = n then
+        ArrayTools[Append](anim, Draw_final(cur_arr, -1, green));
+    end if;
+    iter[1] := i;
+    animation[1] := anim;
+    animation[2] := 1;
+    plots[display](convert(anim, list), insequence,axes=none, light=[20, 20, 1, 1, 1],  orientation=[0, 0, 0]);
+end proc:
+
+BinarySearch := proc(cur_arr, key, animation, iter):
+    local n, i, left, right, mid, anim;
+    n := ArrayTools[Size](cur_arr)[2];
+    anim := Array(1..0):
+    i := 0;
+    left := 1;
+    right := n;
+    while left < right do
+        i := i + 1;
+        mid := iquo(left + right, 2);
+        ArrayTools[Append](anim, Draw_frame(cur_arr, left, right, -1, -1));
+        ArrayTools[Append](anim, Draw_frame(cur_arr, left, right, mid, -1));
+        ArrayTools[Append](anim, Draw_frame(cur_arr, left, right, mid, key));
+        if (key = cur_arr[mid]) then
+            ArrayTools[Append](anim, Draw_final(cur_arr, mid, green));
+            break;
+        end if:
+        if key > cur_arr[mid] then
+            left := mid + 1;
+        else
+            right := mid - 1;
+        end if;
+    end do:
+    if (key >= cur_arr[1]) and (key <= cur_arr[n]) then
+    if (key = cur_arr[left] and left <> mid) then
+        i := i + 1;
+        ArrayTools[Append](anim, Draw_frame(cur_arr, -1, -1, left, key));
+        ArrayTools[Append](anim, Draw_final(cur_arr, left, green));
+    elif (key = cur_arr[right] and right <> mid) then
+        i := i + 1;
+        ArrayTools[Append](anim, Draw_frame(cur_arr, -1, -1, right, key));
+        ArrayTools[Append](anim, Draw_final(cur_arr, right, green));
+    end if;
+    end if;
+    if left >= right and key <> cur_arr[left] then
+        ArrayTools[Append](anim, Draw_final(cur_arr, -1, green));
+    end if:
+    iter[2] := i;
+    animation[1] := anim;
+    animation[2] := 1;
+    plots[display](convert(anim, list), insequence,axes=none, light=[20, 20, 1, 1, 1],  orientation=[0, 0, 0]);
+end proc:
+SetAn := proc():
+    local key;
+    key := parse(Maplets:-Tools:-Get('TB2'('value')), statement);
+    if (Maplets:-Tools:-Get('lin'('value'))) then
+        Maplets:-Tools:-Set('P1' = LinearSearch(cur_arr[1], key, animation, iter));
+    elif (Maplets:-Tools:-Get('bi'('value'))) then
+        Maplets:-Tools:-Set('P1' = BinarySearch(cur_arr[1], key, animation, iter));
+    end if;
+end proc:
+ShowStat := proc(iter):
+    if iter[1] <> 0 then
+        Maplets:-Tools:-Set('L'=convert(iter[1], string));
+    end if:
+    if iter[2] <> 0 then
+        Maplets:-Tools:-Set('B'=convert(iter[2], string));
+    end if:
+end proc:
+
+
+Frame := proc(animation, forw):
+    if forw = 1 then
+        if animation[2] <> ArrayTools[Size](animation[1])[2] then
+            animation[2] := animation[2] + 1;
+        end if;
+        Maplets:-Tools:-Set('P1'('value') = plots[display](animation[1][animation[2]]));
+    else
+        if animation[2] <> 1 then
+            animation[2] := animation[2] - 1;
+        end if;
+        Maplets:-Tools:-Set('P1'('value') = plots[display](animation[1][animation[2]]));
+    end if;
+end proc:     
+
+HelpInfo:="Визуализатор алгоритмов поиска.\n
+        \tРуководство пользователя.\n
+        \tЗадайте ползунком желаемый размер массива в разумных пределах (от 5 до 20 чисел).\n
+        \tНажмите на кнопку \"Создать массив\", и массив нужного размера из чисел из диапазона от 1 до 100 (при таких ограничениях визуализация является наглядной) сгенерируется случайным образом.\n
+        \tПоскольку бинарный поиск применим только к отсортированным массивам, Вы можете отсортировать массив, нажав на кнопку \"Сортировать массив\".
+          Если этого не сделать, будет доступен только линейный поиск.\n
+        \tВведите число, номер (индекс) которого в этом массиве хотите найти, и нажмите кнопку \"Найти\".\n         
+        \tЧтобы узнать, за сколько итераций (шагов алгоритма) был найден элемент (или было выяснено, что его в массиве нет), нажмите кнопку \"Показать\".\n" :
+
+with(Maplets):
+with(Maplets:-Elements):
+M:=Maplet(
+ 'onstartup' = Action(RunWindow('main')),  
+ Window['main'](
+  'menubar'='MB1', 
+  title="Алгоритмы поиска",resizable=false,
+  [
+  MenuBar['MB1'](Menu("Меню",
+                      MenuItem("Об авторе (&A)",RunWindow('Author')),
+                      MenuItem("О программе (&D)",RunWindow('About')),
+                      MenuItem("Помощь (&H)",RunWindow('Help')),
+                      MenuItem("Выход (&Q)",Shutdown()))
+  ),
+  BoxLayout(
+      BoxColumn(
+          BoxRow(border=true,
+          BoxCell(
+              "Число элементов:"
+          ),
+          BoxCell(
+              Slider['Sl'](5..20, 5, 
+              'showticks', 'majorticks'=15, 'minorticks'=1,'snapticks'=true)
+          ),
+          BoxCell(
+              Button("Создать массив", Evaluate('function'='GenerateArr(cur_arr, iter)'))
+          )
+          ),
+          BoxRow(
+          BoxCell(
+              "Массив:"
+          ),
+          BoxCell(
+              TextBox['TB1']("", font=Font(size=20), editable=false, width = 45, height = 1)
+          ),
+          BoxCell(
+              Button("Сортировать массив", Evaluate('function'='Ssort(cur_arr, iter)'))
+          ) 
+          ),
+          BoxRow(
+          BoxCell(
+              RadioButton[lin]("Линейный поиск",group=BG,value=true)
+          ),
+          BoxCell(
+              RadioButton[bi]("Двоичный поиск",group=BG,value=false, enabled=false)
+          )
+          ),
+         BoxRow(
+         BoxCell(
+             TextBox['TB2']("", font=Font(size=20),width = 4)
+         ),
+         BoxCell(
+             Button("Найти", Evaluate('function'='SetAn()'))
+         ),
+         BoxCell(
+             "||"
+         ),
+         BoxCell(
+             "Число итераций:   Линейный:"
+         ),
+         BoxCell(
+             TextBox['L']("-", font=Font(size=20),editable=false, width = 3)
+         ),
+         BoxCell(
+             "Двоичный:"
+         ),
+         BoxCell(
+             TextBox['B']("-", font=Font(size=20),editable=false, width = 3)
+         ),
+         BoxCell(
+             Button("Показать", Evaluate('function'='ShowStat(iter)'))
+         )
+         ),
+         BoxRow(
+         BoxCell(
+             Plotter['P1'](delay = 1000, play=true, continuous=false, background=grey)
+         )
+         ),
+         BoxRow(border=true,
+         BoxCell(
+             Button("⏮", Evaluate('function'='Frame(animation, -1)'))
+         ),
+         BoxCell(
+             Button("▶", Action(Evaluate('function'='SetAn()'), SetOption('P1'('play') = true)))
+         ),
+         BoxCell(
+             Button("⏹", SetOption('P1'('pause') = true))
+         ),
+         BoxCell(
+             Button("⏭", Evaluate('function'='Frame(animation, 1)'))
+         )
+     )
+    )
+   )
+ ]),
+ Window['Help']('title' = "Помощь", width = 700, height = 700, [HelpInfo], [
+    BoxLayout(
+            [Label('halign'=center,'valign'=top,Image(cat(currentdir(),"\\help.jpg"))),       
+            Button("OK", Action(CloseWindow('Help')))] 
+        )
+ ]),
+ Window['Author']('title' = "Об авторе", [
+    BoxLayout(
+        ["\tАвтор: Эмиров Самир 313 группа",
+         "\tМосковский Государственный Университет имени M. В. Ломоносова",
+         "\tФакультет вычислительной математики и кибернетики",
+         "\tКафедра оптимального управления\n \n",
+         "\temail: samir.emirov.2001@mail.ru",
+         "\tGitHub: https://github.com/alavessi/CMC-prac-5sem",
+         "\2022-2023 учебный год",
+         Label('halign'=center,'valign'=top,image=My_photo),
+         Button("OK", Action(CloseWindow('Author')))
+      ]
+     )
+ ]), 
+ Window['About']('title' = "О программе", [
+    BoxLayout(
+        ["\tТехнологическая практика (Практикум на ЭВМ)",
+         "\tПроект \"Алгоритмы поиска\"",
+         "\tРуководство пользователя\n\n",
+         "\tЗадайте ползунком желаемый размер массива в разумных пределах (от 5 до 20 чисел).\n
+         \tНажмите на кнопку \"Создать массив\", и массив нужного размера из чисел из диапазона от 1 до 100 (при таких ограничениях визуализация является наглядной) сгенерируется               случайным образом.\n
+         \tПоскольку бинарный поиск применим только к отсортированным массивам, Вы можете отсортировать массив, нажав на кнопку \"Сортировать массив\".
+          Если этого не сделать, будет доступен только линейный поиск.\n
+         \tВведите число, номер (индекс) которого в этом массиве хотите найти, и нажмите кнопку \"Найти\".\n         
+         \tЧтобы узнать, за сколько итераций (шагов алгоритма) был найден элемент (или было выяснено, что его в массиве нет), нажмите кнопку \"Показать\".\n\n",
+
+         "\tПрограмма разработана на языке Maple (версия 2021).",
+         Button("OK", Action(CloseWindow('About')))
+      ]
+     )
+ ]), 
+ Image[My_photo](cat(currentdir(),"\\photo.jpg")),
+ ButtonGroup[BG](onchange=Evaluate(function="Change"))
+):
+
+cur_arr := Array(1..1):
+iter := Array(1..2):
+Display(M);
+
